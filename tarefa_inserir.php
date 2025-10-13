@@ -41,9 +41,7 @@
         }else{
             echo "<h1>ERRO<h1>";
         };
-
-
-
+        
     ?>
 </body>
 </html>

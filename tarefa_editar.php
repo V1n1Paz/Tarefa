@@ -11,6 +11,41 @@
 </head>
 
 <body>
+    <?php
+        //CÓDIGO PARA REALIZAR BUSCA NO BD
+        //1o PASSO: CAPTURAR OS DADOS DE ENTRADA
+
+        // VARIÁVEIS PARA RECEBER OS DADOS RETORNADOS PELO BD 
+        $id =$_POST["txtId"];
+        $descricao = ""; 
+        $data_entrega = "";
+        $prioridade = "";
+        $responsavel = "";
+        
+         //2º PREPARAR A INSTRUÇÃO SQL - SELECT
+         $sql = "SELECT * FROM tarefa WHERE id = ?";
+
+        //PREPARAR ONDE SERÁ EXECUTADO O COMANDO SQL 
+         $comando = $conexao->prepare($sql);
+
+         //4o RELACIONAR OS PARAMETROS DO COMANDO SQL
+         $comando-> bind_param("i", $id);
+
+         $comando->execute();
+
+         $resultado = $comando->get_result();
+
+
+         if ($resultado->num_rows == 0){
+            echo "<h1>Tarefa indexistente<h1>";
+         } else{
+            $registro = $resultado->fetch_assoc();
+            $descricao = $registro["descricao"];
+            $data_entrega = $registro["data_entrega"];
+            $prioridade = $registro["prioridade"];
+            $responsavel = $registro["responsavel"];
+        }
+    ?>
     <form method="post">
     <div class="container">
         <div class="row">
@@ -18,17 +53,17 @@
                 <h2>Tarefa :: Editar</h2>
                 <div class="form-group">
                     <label>Id</label>
-                    <input type="text" class="form-control" required="" placeholder="Id da tarefa" name="txtId">
+                    <input  value = "<?php echo $id?>" type="text" class="form-control" required="" placeholder="Id da tarefa" name="txtId">
                 </div>
 
                 <div class="form-group">
                     <label>Descrição</label>
-                    <input type="text" class="form-control" required="" placeholder="Descricao da tarefa" name="txtDescricao">
+                    <input value = "<?php echo $descricao?>" type="text" class="form-control" required="" placeholder="Descricao da tarefa" name="txtDescricao">
                 </div>
 
                 <div class="form-group">
                     <label>Data</label>
-                    <input type="date" class="form-control" required="" name="txtData">
+                    <input value = "<?php echo $data_entrega?>" type="date" class="form-control" required="" name="txtData">
                 </div>
 
                 <div class="form-group">
@@ -43,7 +78,7 @@
 
                 <div class="form-group">
                     <label>Responsável</label>
-                    <input type="text" class="form-control" placeholder="Responsável pela tarefa" name="txtResponsavel">
+                    <input value = "<?php echo $responsavel?>" type="text" class="form-control" placeholder="Responsável pela tarefa" name="txtResponsavel">
                 </div>
 
 
