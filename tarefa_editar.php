@@ -85,11 +85,11 @@
                 <br>
                 <div class="form-group">
 
-                    <button type="submit" class="btn btn-primary" name="btEditar">
+                    <button formaction="tarefa_atualizar.php" type="submit" class="btn btn-primary" name="btEditar">
                         Editar
                     </button>
 
-                    <button type="submit" class="btn btn-warning" name="btExcluir">
+                    <button formaction="tarefa_remover.php" type="submit" class="btn btn-warning" name="btExcluir">
                         Excluir
                     </button>
 
